@@ -14,6 +14,7 @@
 		F9605DF41FBB232D007731FC /* FlixsterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9605DF31FBB232D007731FC /* FlixsterTests.swift */; };
 		F9605DFF1FBB232D007731FC /* FlixsterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9605DFE1FBB232D007731FC /* FlixsterUITests.swift */; };
 		F9605E0D1FBC4E08007731FC /* nowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9605E0C1FBC4E08007731FC /* nowPlayingViewController.swift */; };
+		F9605E0F1FBCDABC007731FC /* movieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9605E0E1FBCDABC007731FC /* movieCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		F9605DFE1FBB232D007731FC /* FlixsterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlixsterUITests.swift; sourceTree = "<group>"; };
 		F9605E001FBB232D007731FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9605E0C1FBC4E08007731FC /* nowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nowPlayingViewController.swift; sourceTree = "<group>"; };
+		F9605E0E1FBCDABC007731FC /* movieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = movieCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		F9605DDD1FBB232D007731FC /* Flixster */ = {
 			isa = PBXGroup;
 			children = (
+				F9605E0E1FBCDABC007731FC /* movieCell.swift */,
 				F9605E0C1FBC4E08007731FC /* nowPlayingViewController.swift */,
 				F9605DDE1FBB232D007731FC /* AppDelegate.swift */,
 				F9605DE21FBB232D007731FC /* Main.storyboard */,
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9605E0F1FBCDABC007731FC /* movieCell.swift in Sources */,
 				F9605E0D1FBC4E08007731FC /* nowPlayingViewController.swift in Sources */,
 				F9605DDF1FBB232D007731FC /* AppDelegate.swift in Sources */,
 			);
