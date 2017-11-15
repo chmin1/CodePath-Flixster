@@ -8,10 +8,19 @@
 
 import UIKit
 
-class nowPlayingViewController: UIViewController {
-
+class nowPlayingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet weak var movieTableView: UITableView!
+    
+    var movies: [[String: Any]] = [];
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        movieTableView.dataSource = self;
+        movieTableView.delegate = self;
+        
+        movieTableView.rowHeight = 180
         
         // *** CREATING A NETWORK REQUEST ***
         //Get the URL
@@ -38,14 +47,38 @@ class nowPlayingViewController: UIViewController {
                 
                 //The movies are in the form of a LIST of Dictionaries, grab that list
                 //The LIST in the JSON object is known as "results"
-                let movies = dataDictionary["results"] as! [[String: Any]]
+                self.movies = dataDictionary["results"] as! [[String: Any]]
+                
+                //Update the tableview once the network request completes
+                self.movieTableView.reloadData()
             }
             
         }
-        
         task.resume()
         
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movies.count;
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        //Get the reusable cell class
+        let cell = movieTableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! movieCell;
+        
+        //Get a single movie for the list of movies
+        let movie = movies[indexPath.row];
+        
+        //Get the info from the movie needed for the cell
+        let title = movie["title"] as! String;
+        let overview = movie["overview"] as! String
+        
+        //assign data from the movie to the movie cell
+        cell.titleLabel.text = title;
+        cell.overviewLabel.text = overview;
+        
+        return cell;
     }
 
     override func didReceiveMemoryWarning() {
