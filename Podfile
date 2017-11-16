@@ -7,6 +7,7 @@ target 'Flixster' do
 
   # Pods for Flixster
 	pod 'AlamofireImage', '~> 3.3'
+	pod 'PKHUD', '~> 5.0'
 
   target 'FlixsterTests' do
     inherit! :search_paths
