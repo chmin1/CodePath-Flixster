@@ -8,10 +8,13 @@
 
 import UIKit
 import AlamofireImage
+import PKHUD
 
 class nowPlayingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var movieTableView: UITableView!
+    
+    var refreshController: UIRefreshControl!
     
     var movies: [[String: Any]] = [];
     
@@ -23,6 +26,29 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         
         movieTableView.rowHeight = 180
         
+        //Function to use a network request
+        getMovies()
+        
+        //Implement UIRefreshControl for PULL TO REFRESH
+        refreshController = UIRefreshControl()
+        //RefreshController calls a method when event is triggered
+        refreshController.addTarget(self, action: #selector(nowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
+        movieTableView.insertSubview(refreshController, at: 0)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        HUD.dimsBackground = false
+        HUD.allowsInteraction = false
+        HUD.flash(.progress, delay: 10)
+    }
+    
+    //Function used as action for refresh controller
+    @objc func didPullToRefresh(_ refresher: UIRefreshControl) {
+        getMovies()
+    }
+    
+    func getMovies() {
         // *** CREATING A NETWORK REQUEST ***
         //Get the URL
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
@@ -43,7 +69,7 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
                 // IF DATA WAS RETURNED, PARSE IT USING JSON SERIALIZATION:
                 
                 /*Grab data from the Json object
-                  Since the data is in the form of a dictionary, cast it as a dictionary*/
+                 Since the data is in the form of a dictionary, cast it as a dictionary*/
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 
                 //The movies are in the form of a LIST of Dictionaries, grab that list
@@ -52,11 +78,15 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
                 
                 //Update the tableview once the network request completes
                 self.movieTableView.reloadData()
+                //End refreshing tableview for data
+                self.refreshController.endRefreshing()
+                //Display successful HUD animation
+                HUD.flash(.success, delay: 2.0)
+                
             }
             
         }
         task.resume()
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
