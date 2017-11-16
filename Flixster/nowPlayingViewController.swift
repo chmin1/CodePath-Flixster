@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class nowPlayingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -77,6 +78,16 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         //assign data from the movie to the movie cell
         cell.titleLabel.text = title;
         cell.overviewLabel.text = overview;
+        
+        //GETTING THE POSTER IMAGE
+        //Get the string of the poster path
+        let posterPathString = movie["poster_path"] as! String
+        //Get the base URL
+        let baseURL = "https://image.tmdb.org/t/p/w500"
+        //Put them together and get the poster URL:
+        let posterURL = URL(string: baseURL + posterPathString)!
+        //Get the image using Alamofire set image
+        cell.moviePosterImage.af_setImage(withURL: posterURL)
         
         return cell;
     }
