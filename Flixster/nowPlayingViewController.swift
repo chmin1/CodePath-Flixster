@@ -16,6 +16,8 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     
     var refreshController: UIRefreshControl!
     
+    var alertController: UIAlertController!
+    
     var movies: [[String: Any]] = [];
     
     override func viewDidLoad() {
@@ -26,21 +28,41 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         
         movieTableView.rowHeight = 180
         
+//        //alert if not connected to the internet
+//        isConnected()
+        
         //Function to use a network request
         getMovies()
         
         //Implement UIRefreshControl for PULL TO REFRESH
         refreshController = UIRefreshControl()
+        
         //RefreshController calls a method when event is triggered
         refreshController.addTarget(self, action: #selector(nowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
         movieTableView.insertSubview(refreshController, at: 0)
         
     }
     
+//    func isConnected() {
+//        self.alertController = UIAlertController(title: "Network Error", message: "Are you connected to the internet?", preferredStyle: .alert)
+//
+//        //try to connect again
+//        let connect = UIAlertAction(title: "Connect", style: .cancel) { (action) in
+//            self.getMovies()
+//        }
+//
+//        // add action to alertController
+//        alertController.addAction(connect)
+//
+//        self.present(alertController, animated: true) {
+//            HUD.flash( .error, delay: 2.0)
+//        }
+//    }
+    
     override func viewDidAppear(_ animated: Bool) {
         HUD.dimsBackground = false
         HUD.allowsInteraction = false
-        HUD.flash(.progress, delay: 10)
+        HUD.flash(.progress, delay: 5)
     }
     
     //Function used as action for refresh controller
@@ -78,8 +100,10 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
                 
                 //Update the tableview once the network request completes
                 self.movieTableView.reloadData()
+                
                 //End refreshing tableview for data
                 self.refreshController.endRefreshing()
+                
                 //Display successful HUD animation
                 HUD.flash(.success, delay: 2.0)
                 
