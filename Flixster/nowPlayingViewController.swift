@@ -62,7 +62,7 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidAppear(_ animated: Bool) {
         HUD.dimsBackground = false
         HUD.allowsInteraction = false
-        HUD.flash(.progress, delay: 5)
+        HUD.flash(.progress, delay: 0)
     }
     
     //Function used as action for refresh controller
@@ -145,6 +145,22 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         
         return cell;
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destVC = segue.destination as! movieDetailViewController
+        
+        //Cast the sender as what is sending information
+        //In this case, it's the selected cell
+        let cell = sender as! UITableViewCell;
+        
+        //get the indexpath for the cell selected
+        if let indexPath = movieTableView.indexPath(for: cell) {
+            //get the movie that is being sent
+            let movie = movies[indexPath.row]
+            //Send the selected Movie to the detail VC
+            destVC.movie = movie;
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -156,10 +172,7 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
+    
     */
 
 }
