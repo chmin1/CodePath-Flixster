@@ -36,7 +36,7 @@ class superheroViewController: UIViewController, UICollectionViewDelegate, UICol
     func getMovies() {
         // *** CREATING A NETWORK REQUEST ***
         //Get the URL
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/28,12,14/similar?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US")!
         
         //Create a URL Request with a custom cache policy (never load from local cache) and a timeout interval
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
@@ -91,6 +91,18 @@ class superheroViewController: UIViewController, UICollectionViewDelegate, UICol
         
         return cell;
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destVC = segue.destination as! movieDetailViewController;
+        let item = sender as! UICollectionViewCell;
+        
+        if let indexPath = collectionView.indexPath(for: item) {
+            let movie = movies[indexPath.item]
+            destVC.movie = movie;
+        }
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -102,10 +114,7 @@ class superheroViewController: UIViewController, UICollectionViewDelegate, UICol
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
+    
     */
 
 }
