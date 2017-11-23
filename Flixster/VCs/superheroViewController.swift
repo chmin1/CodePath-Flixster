@@ -17,7 +17,15 @@ class superheroViewController: UIViewController, UICollectionViewDelegate, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        flowLayout.minimumInteritemSpacing = 5
+        flowLayout.minimumLineSpacing = flowLayout.minimumInteritemSpacing
+        let cellsPerLine: CGFloat = 2;
+        let interItemSpacingTotal = flowLayout.minimumLineSpacing * (cellsPerLine - 1)
+        let width = collectionView.frame.size.width / cellsPerLine - interItemSpacingTotal/cellsPerLine;
+        flowLayout.itemSize = CGSize(width: width, height: width * 3/2)
+        
         collectionView.dataSource = self;
         collectionView.delegate = self;
         
