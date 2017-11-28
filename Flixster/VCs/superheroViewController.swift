@@ -18,6 +18,9 @@ class superheroViewController: UIViewController, UICollectionViewDelegate, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.barStyle = .black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
         let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.minimumInteritemSpacing = 5
         flowLayout.minimumLineSpacing = flowLayout.minimumInteritemSpacing
@@ -36,7 +39,7 @@ class superheroViewController: UIViewController, UICollectionViewDelegate, UICol
     func getMovies() {
         // *** CREATING A NETWORK REQUEST ***
         //Get the URL
-        let url = URL(string: "https://api.themoviedb.org/3/movie/28,12,14/similar?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/297761/similar?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US")!
         
         //Create a URL Request with a custom cache policy (never load from local cache) and a timeout interval
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)

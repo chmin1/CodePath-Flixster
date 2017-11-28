@@ -23,10 +23,16 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.barStyle = .black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
+        self.tabBarController?.tabBar.barStyle = .black
+        
         movieTableView.dataSource = self;
         movieTableView.delegate = self;
         
-        movieTableView.rowHeight = 180
+        movieTableView.rowHeight = UITableViewAutomaticDimension;
+        movieTableView.estimatedRowHeight = 50;
         
 //        //alert if not connected to the internet
 //        isConnected()
@@ -159,7 +165,10 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
             let movie = movies[indexPath.row]
             //Send the selected Movie to the detail VC
             destVC.movie = movie;
+            
+            movieTableView.deselectRow(at: indexPath, animated: true)
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
