@@ -12,18 +12,23 @@ The following **required** functionality is complete:
 - [x] Poster images are loaded using the UIImageView category in the AFNetworking library.
 - [x] User sees a loading state while waiting for the movies API.
 - [x] User can pull to refresh the movie list.
+- [x] User can tap a cell to see a detail view (+5pts)
+- [x] User can tap a tab bar button to view a grid layout of Movie Posters using a CollectionView (+5pts)
 
 The following **optional** features are implemented:
 
 - [ ] User sees an error message when there's a networking error.
-- [ ] Movies are displayed using a CollectionView instead of a TableView.
+- [x] Movies are displayed using a CollectionView instead of a TableView.
 - [ ] User can search for a movie.
 - [ ] All images fade in as they are loading.
 - [ ] User can view the large movie poster by tapping on a cell.
 - [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
 - [ ] Customize the selection effect of the cell.
-- [ ] Customize the navigation bar.
-- [ ] Customize the UI.
+- [x] Customize the UI.
+- [x] User can tap a poster in the collection view to see a detail screen of that movie (+3pts)
+- [x] In the detail view, when the user taps the poster, a new screen is presented modally where they can view the trailer (+3pts)
+- [x] Customize the navigation bar (+1pt)
+- [ ] List in any optionals you didn't finish from last week (+1-3pts)
 
 The following **additional** features are implemented:
 
@@ -38,7 +43,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/1XYHtXg.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/H5c73Tx.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/7Oxe12e.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
