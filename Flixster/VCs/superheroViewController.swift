@@ -13,7 +13,7 @@ class superheroViewController: UIViewController, UICollectionViewDelegate, UICol
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var movies: [[String:Any]] = [];
+    var movies: [Movie] = [];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,10 +59,9 @@ class superheroViewController: UIViewController, UICollectionViewDelegate, UICol
                 /*Grab data from the Json object
                  Since the data is in the form of a dictionary, cast it as a dictionary*/
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                let movieDictionaries = dataDictionary["results"] as! [[String:Any]];
                 
-                //The movies are in the form of a LIST of Dictionaries, grab that list
-                //The LIST in the JSON object is known as "results"
-                self.movies = dataDictionary["results"] as! [[String: Any]]
+                self.movies = Movie.movies(dictionaries: movieDictionaries)
                 
                 //Update the tableview once the network request completes
                 self.collectionView.reloadData()
@@ -86,11 +85,7 @@ class superheroViewController: UIViewController, UICollectionViewDelegate, UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "posterCell", for: indexPath) as! posterCell
         let movie = movies[indexPath.item];
-        if let posterPathString = movie["poster_path"] as? String {
-            let baseURL = "https://image.tmdb.org/t/p/w500"
-            let posterURL = URL(string: baseURL + posterPathString)!
-            cell.posterImageView.af_setImage(withURL: posterURL)
-        }
+        cell.posterImageView.af_setImage(withURL: movie.posterURL);
         
         return cell;
     }

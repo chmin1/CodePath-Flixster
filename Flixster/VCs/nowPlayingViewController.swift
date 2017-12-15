@@ -18,7 +18,7 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     
     var alertController: UIAlertController!
     
-    var movies: [[String: Any]] = [];
+    var movies: [Movie] = [];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,10 +99,9 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
                 /*Grab data from the Json object
                  Since the data is in the form of a dictionary, cast it as a dictionary*/
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                let movieDictionaries = dataDictionary["results"] as! [[String:Any]];
                 
-                //The movies are in the form of a LIST of Dictionaries, grab that list
-                //The LIST in the JSON object is known as "results"
-                self.movies = dataDictionary["results"] as! [[String: Any]]
+                self.movies = Movie.movies(dictionaries: movieDictionaries)
                 
                 //Update the tableview once the network request completes
                 self.movieTableView.reloadData()
@@ -132,22 +131,13 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         let movie = movies[indexPath.row];
         
         //Get the info from the movie needed for the cell
-        let title = movie["title"] as! String;
-        let overview = movie["overview"] as! String
+        let title = movie.title;
+        let overview = movie.overview as! String
         
         //assign data from the movie to the movie cell
         cell.titleLabel.text = title;
         cell.overviewLabel.text = overview;
-        
-        //GETTING THE POSTER IMAGE
-        //Get the string of the poster path
-        let posterPathString = movie["poster_path"] as! String
-        //Get the base URL
-        let baseURL = "https://image.tmdb.org/t/p/w500"
-        //Put them together and get the poster URL:
-        let posterURL = URL(string: baseURL + posterPathString)!
-        //Get the image using Alamofire set image
-        cell.moviePosterImage.af_setImage(withURL: posterURL)
+        cell.moviePosterImage.af_setImage(withURL: movie.posterURL)
         
         return cell;
     }

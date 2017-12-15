@@ -21,7 +21,7 @@ class movieDetailViewController: UIViewController {
     
     @IBOutlet weak var overviewLabel: UILabel!
     
-    var movie: [String: Any]?
+    var movie: Movie?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,19 +29,13 @@ class movieDetailViewController: UIViewController {
         self.navigationItem.title = "Details"
 
         if let movie = movie {
-            movieTitleLabel.text = movie["title"] as? String
-            releaseDateLabel.text = movie["release_date"] as? String
-            overviewLabel.text = movie["overview"] as? String
-            let backdropPathString = movie["backdrop_path"] as! String
+            movieTitleLabel.text = movie.title
+            releaseDateLabel.text = movie.releaseDate
+            overviewLabel.text = movie.overview
             
-            let posterPathString = movie["poster_path"] as! String
-            let baseURL = "https://image.tmdb.org/t/p/w500"
+            backdropImage.af_setImage(withURL: movie.backdropURL)
             
-            let backdropURL = URL(string: baseURL + backdropPathString);
-            backdropImage.af_setImage(withURL: backdropURL!)
-            
-            let posterPathURL = URL(string: baseURL + posterPathString);
-            posterImage.af_setImage(withURL: posterPathURL!)
+            posterImage.af_setImage(withURL: movie.posterURL)
         }
         
     }
