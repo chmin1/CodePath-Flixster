@@ -37,45 +37,12 @@ class superheroViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     func getMovies() {
-        // *** CREATING A NETWORK REQUEST ***
-        //Get the URL
-        let url = URL(string: "https://api.themoviedb.org/3/movie/297761/similar?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US")!
-        
-        //Create a URL Request with a custom cache policy (never load from local cache) and a timeout interval
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        
-        //Create a URL Session
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        
-        //Create a data task to grab the data requested
-        let task = session.dataTask(with: request) { (data, response, error) in
-            
-            //This runs asynchrously and will run when the network request returns
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let data = data {
-                // IF DATA WAS RETURNED, PARSE IT USING JSON SERIALIZATION:
-                
-                /*Grab data from the Json object
-                 Since the data is in the form of a dictionary, cast it as a dictionary*/
-                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let movieDictionaries = dataDictionary["results"] as! [[String:Any]];
-                
-                self.movies = Movie.movies(dictionaries: movieDictionaries)
-                
-                //Update the tableview once the network request completes
-                self.collectionView.reloadData()
-                
-//                //End refreshing tableview for data
-//                self.refreshController.endRefreshing()
-                
-//                //Display successful HUD animation
-//                HUD.flash(.success, delay: 2.0)
-                
+        MovieApiManager().superHeroMovies { (movies, error) in
+            if let movies = movies {
+                self.movies = movies;
+                self.collectionView.reloadData();
             }
-            
         }
-        task.resume()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

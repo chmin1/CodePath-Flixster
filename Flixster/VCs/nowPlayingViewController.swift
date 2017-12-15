@@ -49,22 +49,6 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-//    func isConnected() {
-//        self.alertController = UIAlertController(title: "Network Error", message: "Are you connected to the internet?", preferredStyle: .alert)
-//
-//        //try to connect again
-//        let connect = UIAlertAction(title: "Connect", style: .cancel) { (action) in
-//            self.getMovies()
-//        }
-//
-//        // add action to alertController
-//        alertController.addAction(connect)
-//
-//        self.present(alertController, animated: true) {
-//            HUD.flash( .error, delay: 2.0)
-//        }
-//    }
-    
     override func viewDidAppear(_ animated: Bool) {
         HUD.dimsBackground = false
         HUD.allowsInteraction = false
@@ -77,45 +61,14 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func getMovies() {
-        // *** CREATING A NETWORK REQUEST ***
-        //Get the URL
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
-        
-        //Create a URL Request with a custom cache policy (never load from local cache) and a timeout interval
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        
-        //Create a URL Session
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        
-        //Create a data task to grab the data requested
-        let task = session.dataTask(with: request) { (data, response, error) in
-            
-            //This runs asynchrously and will run when the network request returns
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let data = data {
-                // IF DATA WAS RETURNED, PARSE IT USING JSON SERIALIZATION:
-                
-                /*Grab data from the Json object
-                 Since the data is in the form of a dictionary, cast it as a dictionary*/
-                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let movieDictionaries = dataDictionary["results"] as! [[String:Any]];
-                
-                self.movies = Movie.movies(dictionaries: movieDictionaries)
-                
-                //Update the tableview once the network request completes
+        MovieApiManager().nowPlayingMovies { (movies, error) in
+            if let movies = movies {
+                self.movies = movies
                 self.movieTableView.reloadData()
-                
-                //End refreshing tableview for data
                 self.refreshController.endRefreshing()
-                
-                //Display successful HUD animation
-                HUD.flash(.success, delay: 2.0)
-                
+                HUD.flash(.success, delay: 1.0)
             }
-            
         }
-        task.resume()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,7 +85,7 @@ class nowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         
         //Get the info from the movie needed for the cell
         let title = movie.title;
-        let overview = movie.overview as! String
+        let overview = movie.overview
         
         //assign data from the movie to the movie cell
         cell.titleLabel.text = title;
