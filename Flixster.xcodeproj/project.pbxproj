@@ -10,6 +10,7 @@
 		5A51C360AF16CCB68B748C93 /* Pods_Flixster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38D3228F86934A8FB52AAA /* Pods_Flixster.framework */; };
 		84168A1A526A0DD865A9E233 /* Pods_FlixsterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7F823D7D7C2DF4CF6E1FBC /* Pods_FlixsterTests.framework */; };
 		B01FD1AA6D99E6F047D5218D /* Pods_FlixsterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2861A741CDA297F05ABC5B1 /* Pods_FlixsterUITests.framework */; };
+		F944333B1FE2F3B3003F1050 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F944333A1FE2F3B3003F1050 /* Movie.swift */; };
 		F94B35CA1FC5729800FA6D76 /* movieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94B35C91FC5729800FA6D76 /* movieDetailViewController.swift */; };
 		F94B35CD1FC6349C00FA6D76 /* superheroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94B35CC1FC6349C00FA6D76 /* superheroViewController.swift */; };
 		F94B35CF1FC634F000FA6D76 /* posterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94B35CE1FC634F000FA6D76 /* posterCell.swift */; };
@@ -50,6 +51,7 @@
 		A2C2A328DEBFB726E3E965F5 /* Pods-FlixsterUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlixsterUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlixsterUITests/Pods-FlixsterUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DE3E33D513E04D035B6C5045 /* Pods-FlixsterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlixsterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlixsterUITests/Pods-FlixsterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E2861A741CDA297F05ABC5B1 /* Pods_FlixsterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlixsterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F944333A1FE2F3B3003F1050 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		F94B35C91FC5729800FA6D76 /* movieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = movieDetailViewController.swift; sourceTree = "<group>"; };
 		F94B35CC1FC6349C00FA6D76 /* superheroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = superheroViewController.swift; sourceTree = "<group>"; };
 		F94B35CE1FC634F000FA6D76 /* posterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = posterCell.swift; sourceTree = "<group>"; };
@@ -107,6 +109,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F94433391FE2F2DC003F1050 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F9605E0E1FBCDABC007731FC /* movieCell.swift */,
+				F94B35CE1FC634F000FA6D76 /* posterCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		F94B35CB1FC62F6000FA6D76 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,14 +153,14 @@
 		F9605DDD1FBB232D007731FC /* Flixster */ = {
 			isa = PBXGroup;
 			children = (
-				F94B35CB1FC62F6000FA6D76 /* VCs */,
-				F9605E0E1FBCDABC007731FC /* movieCell.swift */,
 				F9605DDE1FBB232D007731FC /* AppDelegate.swift */,
 				F9605DE21FBB232D007731FC /* Main.storyboard */,
+				F94433391FE2F2DC003F1050 /* Cells */,
+				F94B35CB1FC62F6000FA6D76 /* VCs */,
 				F9605DE51FBB232D007731FC /* Assets.xcassets */,
 				F9605DE71FBB232D007731FC /* LaunchScreen.storyboard */,
 				F9605DEA1FBB232D007731FC /* Info.plist */,
-				F94B35CE1FC634F000FA6D76 /* posterCell.swift */,
+				F944333A1FE2F3B3003F1050 /* Movie.swift */,
 			);
 			path = Flixster;
 			sourceTree = "<group>";
@@ -482,6 +493,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F944333B1FE2F3B3003F1050 /* Movie.swift in Sources */,
 				F94B35CF1FC634F000FA6D76 /* posterCell.swift in Sources */,
 				F94B35CA1FC5729800FA6D76 /* movieDetailViewController.swift in Sources */,
 				F9605E0F1FBCDABC007731FC /* movieCell.swift in Sources */,
